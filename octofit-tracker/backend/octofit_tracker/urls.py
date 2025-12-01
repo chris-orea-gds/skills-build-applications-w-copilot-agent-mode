@@ -18,12 +18,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from . import views
+import os
+
+CODESPACE_NAME = os.environ.setdefault('CODESPACE_NAME', 'my-codespace')  # Default value for testing
+
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/users/', views.UserList.as_view(), name='user-list'),
-    path('api/teams/', views.TeamList.as_view(), name='team-list'),
-    path('api/activities/', views.ActivityList.as_view(), name='activity-list'),
-    path('api/leaderboard/', views.LeaderboardView.as_view(), name='leaderboard'),
-    path('api/workouts/', views.WorkoutSuggestionList.as_view(), name='workout-list'),
+    path(f'https://{CODESPACE_NAME}-8000.app.github.dev/admin/', admin.site.urls),
+    path(f'https://{CODESPACE_NAME}-8000.app.github.dev/api/users/', views.UserList.as_view(), name='user-list'),
+    path(f'https://{CODESPACE_NAME}-8000.app.github.dev/api/teams/', views.TeamList.as_view(), name='team-list'),
+    path(f'https://{CODESPACE_NAME}-8000.app.github.dev/api/activities/', views.ActivityList.as_view(), name='activity-list'),
+    path(f'https://{CODESPACE_NAME}-8000.app.github.dev/api/leaderboard/', views.LeaderboardView.as_view(), name='leaderboard'),
+    path(f'https://{CODESPACE_NAME}-8000.app.github.dev/api/workouts/', views.WorkoutSuggestionList.as_view(), name='workout-list'),
 ]
