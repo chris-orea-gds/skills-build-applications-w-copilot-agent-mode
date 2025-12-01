@@ -14,33 +14,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+
 from django.contrib import admin
 from django.urls import path
-from rest_framework.urlpatterns import format_suffix_patterns
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
 from . import views
-
-
-# API root para navegación
-@api_view(['GET'])
-def api_root(request, format=None):
-    return Response({
-        'users': '/users/',
-        'teams': '/teams/',
-        'activities': '/activities/',
-        'leaderboard': '/leaderboard/',
-        'workouts': '/workouts/',
-    })
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', api_root, name='api-root'),
-    path('users/', views.UserList.as_view(), name='user-list'),
-    path('teams/', views.TeamList.as_view(), name='team-list'),
-    path('activities/', views.ActivityList.as_view(), name='activity-list'),
-    path('leaderboard/', views.LeaderboardView.as_view(), name='leaderboard'),
-    path('workouts/', views.WorkoutSuggestionList.as_view(), name='workout-list'),
+    path('api/users/', views.UserList.as_view(), name='user-list'),
+    path('api/teams/', views.TeamList.as_view(), name='team-list'),
+    path('api/activities/', views.ActivityList.as_view(), name='activity-list'),
+    path('api/leaderboard/', views.LeaderboardView.as_view(), name='leaderboard'),
+    path('api/workouts/', views.WorkoutSuggestionList.as_view(), name='workout-list'),
 ]
-
-urlpatterns = format_suffix_patterns(urlpatterns)
